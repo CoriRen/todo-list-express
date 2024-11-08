@@ -42,18 +42,17 @@ app.get('/',async (request, response)=>{
     response.render('index.ejs', { items: todoItems, left: itemsLeft })
 
     //finds all documents in the todo collection and put the documents into an array.
-    // db.collection('todos').find().toArray()  
+    db.collection('todos').find().toArray()  
 
      //the array will be held in the variable 'data'
-    // .then(data => { 
-    //     db.collection('todos').countDocuments({completed: false})
-    //     .then(itemsLeft => {
-
-    //         //pass the data (array) into the ejs template. The data is given the name of items.
-    //         response.render('index.ejs', { items: data, left: itemsLeft }) 
-    //     })
-    // })
-    // .catch(error => console.error(error))
+    .then(data => { 
+        db.collection('todos').countDocuments({completed: false})
+        .then(itemsLeft => {
+            //pass the data (array) into the ejs template. The data is given the name of items.
+            response.render('index.ejs', { items: data, left: itemsLeft })
+        })
+    })
+     
 })
 
 //listens for post request from form with route '/addTodo'
